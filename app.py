@@ -3,35 +3,39 @@ import base64
 from api_call import note_generator , audio_generator, quiz_generator
 
 
-# Custom CSS to hide ONLY the GitHub/Deploy buttons without breaking the sidebar
-# 1. Put this at the VERY TOP of your file (after imports)
+
+
+# 1. Force the initial state
 st.set_page_config(
     page_title="Note Summary & Quiz Generator",
     layout="wide",
     initial_sidebar_state="expanded" 
 )
 
-# 2. Paste this block to hide the Fork, GitHub, and all Sidebar buttons
+# 2. Universal CSS Override
 st.markdown("""
     <style>
-    /* 1. Hides the top header (Fork, GitHub, Deploy buttons) */
+    /* Hides the entire top bar (Fork, GitHub, Deploy) */
     header[data-testid="stHeader"] {
         display: none !important;
     }
 
-    /* 2. Hides the 'X' button inside the sidebar so it can't be closed */
-    button[aria-label="Close sidebar"] {
-        display: none !important;
-    }
-
-    /* 3. Hides the 'Open' arrow just in case */
+    /* Hides ALL toggle/close buttons in the sidebar and header area */
+    button[kind="headerNoPadding"], 
+    button[aria-label="Close sidebar"],
+    button[aria-label="Open sidebar"],
     [data-testid="collapsedControl"] {
         display: none !important;
     }
 
-    /* 4. Pulls your content up to the top of the page */
+    /* Pulls content up since the header is gone */
     .block-container {
         padding-top: 2rem !important;
+    }
+    
+    /* Optional: Removes the 'gray' hover effect where the button used to be */
+    .st-emotion-cache-15ec669 {
+        display: none !important;
     }
     </style>
     """, unsafe_allow_html=True)
