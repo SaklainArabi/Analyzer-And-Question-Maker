@@ -39,7 +39,7 @@ with st.sidebar:
      select_option= st.radio("Enter the difficulty of your quiz",["Easy","Medium","Hard"],index=None)
      if select_option:
           st.markdown(f"**{select_option}**")
-     pressed =st.button("Click the button",type="primary")                   
+     pressed =st.button("Generate summary and quiz",type="primary")                   
                # Here you can add code to process the uploaded files and generate summaries and quizzes
 
 if pressed:
