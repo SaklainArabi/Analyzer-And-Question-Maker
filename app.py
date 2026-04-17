@@ -2,6 +2,35 @@ import streamlit as st
 import base64
 from api_call import note_generator , audio_generator, quiz_generator
 
+# 1. Essential Page Config (Hiding the sidebar by default on mobile)
+st.set_page_config(
+    page_title="Note Summary & Quiz Generator",
+    layout="wide",
+    initial_sidebar_state="auto"
+)
+
+# 2. Surgical CSS to hide ONLY Fork, GitHub, and Deploy
+st.markdown("""
+    <style>
+    /* Hides the GitHub icon, Fork text, and Deploy button */
+    header[data-testid="stHeader"] div[data-testid="stStatusWidget"],
+    .stAppDeployButton {
+        display: none !important;
+    }
+    
+    /* Hides the '...' Main Menu (optional, but cleaner) */
+    #MainMenu {
+        visibility: hidden;
+    }
+
+    /* Hides the Streamlit footer */
+    footer {
+        visibility: hidden;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+# main code
 
 st.title("Note Summary and Quiz Generator")
 st.markdown("Upload upto 3 file to generate Note summary and Quizzes")
