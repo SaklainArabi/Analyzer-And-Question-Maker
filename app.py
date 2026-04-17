@@ -4,31 +4,32 @@ from api_call import note_generator , audio_generator, quiz_generator
 
 
 # Custom CSS to hide ONLY the GitHub/Deploy buttons without breaking the sidebar
-hide_style = """
+st.markdown("""
      <style>
-     /* 1. Hides the "Deploy" button */
+     /* 1. Hides the 'Fork' text and GitHub icon in the top right */
+     header[data-testid="stHeader"] p, 
+     header[data-testid="stHeader"] a,
+     header[data-testid="stHeader"] div[data-testid="stStatusWidget"] {
+          display: none !important;
+     }
+
+     /* 2. Hides the 'Deploy' button if it appears */
      .stAppDeployButton {
           display: none !important;
      }
-     /* 2. Hides the GitHub icon and Fork/Repository options */
-     /* This targets the 2026 Status Widget specifically */
-     [data-testid="stStatusWidget"] {
-          display: none !important;
+
+     /* 3. Hides the '...' menu (where more links are hidden) */
+     #MainMenu {
+          visibility: hidden;
      }
-     /* 3. Hides the '...' menu and footer */
-     #MainMenu {display: none !important;}
-     footer {display: none !important;}
-     
-     /* 4. PROTECTS the sidebar toggle arrow */
-     /* This ensures that while the rest of the header is gone, 
-          the button to open/close the sidebar remains interactive. */
+
+     /* 4. PROTECT the sidebar arrow - ensure it stays visible */
      button[data-testid="stBaseButton-headerNoPadding"] {
           visibility: visible !important;
           display: flex !important;
      }
      </style>
-     """
-st.markdown(hide_style, unsafe_allow_html=True)
+     """, unsafe_allow_html=True)
 
 st.title("Note Summary and Quiz Generator")
 st.markdown("Upload upto 3 file to generate Note summary and Quizzes")
