@@ -4,17 +4,23 @@ from api_call import note_generator , audio_generator, quiz_generator
 
 
 # Custom CSS to hide the Fork and GitHub repository button
-hide_github_icon = """
+hide_style = """
      <style>
+     /* Hides the "Deploy" button */
      .stAppDeployButton {
           display: none !important;
      }
-     [data-testid="stToolbar"] {
-          display: none !important;
+     /* Hides the '...' menu and GitHub icon but keeps the sidebar arrow */
+     #MainMenu {visibility: hidden;}
+     footer {visibility: hidden;}
+     
+     /* Ensures the sidebar toggle button stays visible and clickable */
+     section[data-testid="stSidebar"] + div {
+          display: flex !important;
      }
      </style>
      """
-st.markdown(hide_github_icon, unsafe_allow_html=True)
+st.markdown(hide_style, unsafe_allow_html=True)
 
 st.title("Note Summary and Quiz Generator")
 st.markdown("Upload upto 3 file to generate Note summary and Quizzes")
