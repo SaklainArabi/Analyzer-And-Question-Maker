@@ -3,19 +3,27 @@ import base64
 from api_call import note_generator , audio_generator, quiz_generator
 
 
-# Custom CSS to hide the Fork and GitHub repository button
+# Custom CSS to hide ONLY the GitHub/Deploy buttons without breaking the sidebar
 hide_style = """
      <style>
-     /* Hides the "Deploy" button */
+     /* 1. Hides the "Deploy" button */
      .stAppDeployButton {
           display: none !important;
      }
-     /* Hides the '...' menu and GitHub icon but keeps the sidebar arrow */
-     #MainMenu {visibility: hidden;}
-     footer {visibility: hidden;}
+     /* 2. Hides the GitHub icon and Fork/Repository options */
+     /* This targets the 2026 Status Widget specifically */
+     [data-testid="stStatusWidget"] {
+          display: none !important;
+     }
+     /* 3. Hides the '...' menu and footer */
+     #MainMenu {display: none !important;}
+     footer {display: none !important;}
      
-     /* Ensures the sidebar toggle button stays visible and clickable */
-     section[data-testid="stSidebar"] + div {
+     /* 4. PROTECTS the sidebar toggle arrow */
+     /* This ensures that while the rest of the header is gone, 
+          the button to open/close the sidebar remains interactive. */
+     button[data-testid="stBaseButton-headerNoPadding"] {
+          visibility: visible !important;
           display: flex !important;
      }
      </style>
