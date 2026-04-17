@@ -2,40 +2,60 @@ import streamlit as st
 import base64
 from api_call import note_generator , audio_generator, quiz_generator
 
-
-
-
-# 1. Force the initial state
+# 1. Set the initial state to auto so it doesn't break mobile layouts
 st.set_page_config(
     page_title="Note Summary & Quiz Generator",
     layout="wide",
-    initial_sidebar_state="expanded" 
+    initial_sidebar_state="auto" 
 )
-
-# 2. Universal CSS Override
+# 2. The Comprehensive CSS
 st.markdown("""
     <style>
-    /* Hides the entire top bar (Fork, GitHub, Deploy) */
-    header[data-testid="stHeader"] {
+    /* --- GLOBAL RULES (Applies to all devices) --- */
+    
+    /* 1. Kill the entire header (Deletes Fork, GitHub, and Deploy buttons) */
+    header[data-testid="stHeader"], 
+    [data-testid="stStatusWidget"], 
+    #MainMenu {
         display: none !important;
     }
 
-    /* Hides ALL toggle/close buttons in the sidebar and header area */
-    button[kind="headerNoPadding"], 
-    button[aria-label="Close sidebar"],
-    button[aria-label="Open sidebar"],
-    [data-testid="collapsedControl"] {
-        display: none !important;
+    /* 2. Remove footer branding */
+    footer {
+        visibility: hidden;
     }
 
-    /* Pulls content up since the header is gone */
+    /* 3. Adjust top padding for a clean look */
     .block-container {
         padding-top: 2rem !important;
     }
-    
-    /* Optional: Removes the 'gray' hover effect where the button used to be */
-    .st-emotion-cache-15ec669 {
-        display: none !important;
+
+
+    /* --- RESPONSIVE RULES --- */
+
+    /* DESKTOP: Screens wider than 992px */
+    @media (min-width: 992px) {
+        /* Lock the sidebar: hide the close buttons */
+        button[aria-label="Close sidebar"],
+        [data-testid="collapsedControl"] {
+            display: none !important;
+        }
+    }
+
+    /* MOBILE: Screens narrower than 991px */
+    @media (max-width: 991px) {
+        /* Keep Fork/GitHub hidden (done in global), but bring back the 
+           Sidebar Arrow so mobile users can actually access the controls. */
+        [data-testid="collapsedControl"] {
+            display: flex !important;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 999999;
+            background-color: #f0f2f6;
+            border-radius: 50%;
+            padding: 5px;
+        }
     }
     </style>
     """, unsafe_allow_html=True)
