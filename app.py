@@ -2,6 +2,20 @@ import streamlit as st
 import base64
 from api_call import note_generator , audio_generator, quiz_generator
 
+
+# Custom CSS to hide the Fork and GitHub repository button
+hide_github_icon = """
+     <style>
+     .stAppDeployButton {
+          display: none !important;
+     }
+     [data-testid="stToolbar"] {
+          display: none !important;
+     }
+     </style>
+     """
+st.markdown(hide_github_icon, unsafe_allow_html=True)
+
 st.title("Note Summary and Quiz Generator")
 st.markdown("Upload upto 3 file to generate Note summary and Quizzes")
 st.divider()
@@ -71,3 +85,4 @@ if pressed:
                with st.spinner("Generating quiz questions..."):
                     quiz = quiz_generator(uploaded_files,select_option)
                     st.markdown(quiz)
+                    
