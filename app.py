@@ -2,64 +2,50 @@ import streamlit as st
 import base64
 from api_call import note_generator , audio_generator, quiz_generator
 
-# 1. Set the initial state to auto so it doesn't break mobile layouts
+
+
+# 1. Force the sidebar to be open from the very start
 st.set_page_config(
     page_title="Note Summary & Quiz Generator",
     layout="wide",
-    initial_sidebar_state="auto" 
+    initial_sidebar_state="expanded" 
 )
-# 2. The Comprehensive CSS
+
+# 2. The Hard-Lock CSS (No exceptions for mobile or desktop)
 st.markdown("""
     <style>
-    /* --- GLOBAL RULES (Applies to all devices) --- */
-    
-    /* 1. Kill the entire header (Deletes Fork, GitHub, and Deploy buttons) */
-    header[data-testid="stHeader"], 
-    [data-testid="stStatusWidget"], 
-    #MainMenu {
+    /* 1. DELETE the entire top header (Removes Fork, GitHub, and Deploy) */
+    header[data-testid="stHeader"] {
         display: none !important;
     }
 
-    /* 2. Remove footer branding */
+    /* 2. DELETE every possible sidebar toggle/close button */
+    /* This targets the 'X' button, the arrow, and the mobile collapse trigger */
+    button[aria-label="Close sidebar"],
+    button[aria-label="Open sidebar"],
+    [data-testid="collapsedControl"],
+    .st-emotion-cache-6q9sum.ef3ps4l2 {
+        display: none !important;
+    }
+
+    /* 3. FORCE the sidebar to be visible and take up space on all screens */
+    section[data-testid="stSidebar"] {
+        display: flex !important;
+        min-width: 300px !important;
+        margin-left: 0 !important;
+    }
+
+    /* 4. Remove extra top padding for a clean start */
+    .block-container {
+        padding-top: 1rem !important;
+    }
+    
+    /* 5. Hide the footer branding */
     footer {
         visibility: hidden;
     }
-
-    /* 3. Adjust top padding for a clean look */
-    .block-container {
-        padding-top: 2rem !important;
-    }
-
-
-    /* --- RESPONSIVE RULES --- */
-
-    /* DESKTOP: Screens wider than 992px */
-    @media (min-width: 992px) {
-        /* Lock the sidebar: hide the close buttons */
-        button[aria-label="Close sidebar"],
-        [data-testid="collapsedControl"] {
-            display: none !important;
-        }
-    }
-
-    /* MOBILE: Screens narrower than 991px */
-    @media (max-width: 991px) {
-        /* Keep Fork/GitHub hidden (done in global), but bring back the 
-           Sidebar Arrow so mobile users can actually access the controls. */
-        [data-testid="collapsedControl"] {
-            display: flex !important;
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 999999;
-            background-color: #f0f2f6;
-            border-radius: 50%;
-            padding: 5px;
-        }
-    }
     </style>
     """, unsafe_allow_html=True)
-
 st.title("Note Summary and Quiz Generator")
 st.markdown("Upload upto 3 file to generate Note summary and Quizzes")
 st.divider()
