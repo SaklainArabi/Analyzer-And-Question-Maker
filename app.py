@@ -5,31 +5,30 @@ from api_call import note_generator , audio_generator, quiz_generator
 
 # Custom CSS to hide ONLY the GitHub/Deploy buttons without breaking the sidebar
 st.markdown("""
-     <style>
-     /* 1. Hides the 'Fork' text and GitHub icon in the top right */
-     header[data-testid="stHeader"] p, 
-     header[data-testid="stHeader"] a,
-     header[data-testid="stHeader"] div[data-testid="stStatusWidget"] {
-          display: none !important;
-     }
+    <style>
+    /* 1. Completely remove the entire top header bar */
+    header[data-testid="stHeader"] {
+        display: none !important;
+    }
 
-     /* 2. Hides the 'Deploy' button if it appears */
-     .stAppDeployButton {
-          display: none !important;
-     }
+    /* 2. Remove the padding at the top so your app starts at the very top of the screen */
+    .block-container {
+        padding-top: 0rem !important;
+    }
 
-     /* 3. Hides the '...' menu (where more links are hidden) */
-     #MainMenu {
-          visibility: hidden;
-     }
-
-     /* 4. PROTECT the sidebar arrow - ensure it stays visible */
-     button[data-testid="stBaseButton-headerNoPadding"] {
-          visibility: visible !important;
-          display: flex !important;
-     }
-     </style>
-     """, unsafe_allow_html=True)
+    /* 3. This is the TRICK for the Sidebar Arrow:
+       Since we deleted the header, the arrow is gone. 
+       We will manually force the sidebar toggle to appear 
+       floating in the top left corner. */
+    [data-testid="collapsedControl"] {
+        display: flex !important;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 999999;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 st.title("Note Summary and Quiz Generator")
 st.markdown("Upload upto 3 file to generate Note summary and Quizzes")
