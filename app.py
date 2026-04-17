@@ -3,53 +3,6 @@ import base64
 from api_call import note_generator , audio_generator, quiz_generator
 
 
-# 1. Force the sidebar to be open from the start
-st.set_page_config(
-    page_title="Note Summary & Quiz Generator",
-    layout="wide",
-    initial_sidebar_state="expanded" 
-)
-
-# 2. The Final Fixed CSS
-st.markdown("""
-    <style>
-    /* 1. Make the Fork/GitHub icons invisible without deleting the header container */
-    /* This prevents the sidebar from breaking */
-    header[data-testid="stHeader"] {
-        visibility: hidden;
-        height: 0px;
-    }
-
-    /* 2. Lock the Sidebar OPEN and remove the 'X' (close) button */
-    button[aria-label="Close sidebar"] {
-        display: none !important;
-    }
-
-    /* 3. Remove the 'Open' arrow (if it somehow collapses) */
-    [data-testid="collapsedControl"] {
-        display: none !important;
-    }
-
-    /* 4. Force the sidebar to stay visible on all devices */
-    section[data-testid="stSidebar"] {
-        display: flex !important;
-        min-width: 300px !important;
-    }
-
-    /* 5. Pull content up to fill the gap left by the hidden header */
-    .block-container {
-        padding-top: 2rem !important;
-    }
-
-    /* 6. Hide the footer branding */
-    footer {
-        visibility: hidden;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-
-
 st.title("Note Summary and Quiz Generator")
 st.markdown("Upload upto 3 file to generate Note summary and Quizzes")
 st.divider()
