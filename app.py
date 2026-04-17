@@ -2,49 +2,6 @@ import streamlit as st
 import base64
 from api_call import note_generator , audio_generator, quiz_generator
 
-
-
-# 1. Page Config
-st.set_page_config(
-    page_title="Note Summary & Quiz Generator",
-    page_icon="📚",
-    layout="wide"
-)
-
-# 2. The "Total Wipe" CSS
-st.markdown("""
-    <style>
-    /* 1. Hide the entire Header (Fork, GitHub, and the blank space) */
-    header[data-testid="stHeader"] {
-        display: none !important;
-    }
-
-    /* 2. Hide the "Hosted with Streamlit" Red Badge (bottom right) */
-    .stAppDeployButton, 
-    [data-testid="stStatusWidget"],
-    div[data-testid="stDecoration"],
-    div.stActionButton {
-        display: none !important;
-    }
-
-    /* 3. Hide the footer (Made with Streamlit) */
-    footer {
-        visibility: hidden !important;
-        height: 0px;
-    }
-
-    /* 4. Extra: Remove the '...' menu if you want a truly clean look */
-    #MainMenu {
-        visibility: hidden !important;
-    }
-
-    /* Adjust main content padding since header is gone */
-    .block-container {
-        padding-top: 1rem !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
 # main code
 
 st.title("Note Summary and Quiz Generator")
